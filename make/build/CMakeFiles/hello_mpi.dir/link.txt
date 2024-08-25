@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/hello_mpi.dir/hello_mpi.cpp.o  -o hello_mpi  -Wl,-rpath,/usr/lib/x86_64-linux-gnu/openmpi/lib /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi_cxx.so /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so 

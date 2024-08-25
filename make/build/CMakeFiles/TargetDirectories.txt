@@ -1,5 +1,0 @@
-/home/lxy/hpcgame2024/make/build/CMakeFiles/rebuild_cache.dir
-/home/lxy/hpcgame2024/make/build/CMakeFiles/hello_cuda.dir
-/home/lxy/hpcgame2024/make/build/CMakeFiles/hello_mpi.dir
-/home/lxy/hpcgame2024/make/build/CMakeFiles/edit_cache.dir
-/home/lxy/hpcgame2024/make/build/CMakeFiles/hello_omp.dir
