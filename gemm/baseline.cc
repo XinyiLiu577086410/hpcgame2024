@@ -2,9 +2,14 @@
 #include <chrono>
 #include <omp.h>
 
-void mul(double * __restrict a,  double * __restrict b, double * __restrict c, uint64_t n1, uint64_t n2, uint64_t n3) {
+void mul(float * __restrict a,  float * __restrict b, float * __restrict c, uint64_t n1, uint64_t n2, uint64_t n3) {
+
 #pragma acc data copyin(a[0:n1*n2], b[0:n2*n3], c[0:n1*n3])
 #pragma acc parallel
+
+#pragma omp target map(to:a[0:n1*n2], b[0:n2*n3]) map(tofrom:c[0:n1*n3])
+
+ #pragma omp parallel loop collapse(3)
  for (int i = 0; i < n1; i++) {
   #pragma acc loop
   for (int j = 0; j < n2; j++) {
@@ -23,16 +28,17 @@ int main() {
  FILE* fi;
 
  fi = fopen("conf.data", "rb");
- fread(&n1, 1, 8, fi);
- fread(&n2, 1, 8, fi);
- fread(&n3, 1, 8, fi);
+ const size_t size_float = sizeof(float);
+ fread(&n1, 1, sizeof(uint64_t), fi);
+ fread(&n2, 1, sizeof(uint64_t), fi);
+ fread(&n3, 1, sizeof(uint64_t), fi);
 
- double* a = (double*)malloc(n1 * n2 * 8);
- double* b = (double*)malloc(n2 * n3 * 8);
- double* c = (double*)malloc(n1 * n3 * 8);
+ float* a = (float*)malloc(n1 * n2 * size_float);
+ float* b = (float*)malloc(n2 * n3 * size_float);
+ float* c = (float*)malloc(n1 * n3 * size_float);
 
- fread(a, 1, n1 * n2 * 8, fi);
- fread(b, 1, n2 * n3 * 8, fi);
+ fread(a, 1, n1 * n2 * size_float, fi);
+ fread(b, 1, n2 * n3 * size_float, fi);
  fclose(fi);
 
  for (uint64_t i = 0; i < n1; i++) {
@@ -49,7 +55,7 @@ int main() {
 
 
  fi = fopen("stdans.data", "wb");
- fwrite(c, 1, n1 * n3 * 8, fi);
+ fwrite(c, 1, n1 * n3 * size_float, fi);
  fclose(fi);
 
  return 0;

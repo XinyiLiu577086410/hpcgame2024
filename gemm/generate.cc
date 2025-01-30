@@ -25,18 +25,18 @@ int main(int argc, char* argv[]) {
     std::srand(std::time(0));
 
     // Create and write the first matrix
-    std::vector<double> M1(N1 * N2);
+    std::vector<float> M1(N1 * N2);
     for (auto& element : M1) {
-        element = static_cast<double>(std::rand()) / RAND_MAX;  // Random double between 0 and 1
+        element = static_cast<double>(std::rand()) / RAND_MAX;  // Random float between 0 and 1
     }
-    file.write(reinterpret_cast<char*>(M1.data()), M1.size() * sizeof(double));
+    file.write(reinterpret_cast<char*>(M1.data()), M1.size() * sizeof(float));
 
     // Create and write the second matrix
-    std::vector<double> M2(N2 * N3);
+    std::vector<float> M2(N2 * N3);
     for (auto& element : M2) {
-        element = static_cast<double>(std::rand()) / RAND_MAX;  // Random double between 0 and 1
+        element = static_cast<double>(std::rand()) / RAND_MAX;  // Random float between 0 and 1
     }
-    file.write(reinterpret_cast<char*>(M2.data()), M2.size() * sizeof(double));
+    file.write(reinterpret_cast<char*>(M2.data()), M2.size() * sizeof(float));
 
     file.close();
 
